@@ -1,0 +1,21 @@
+#table {
+	border: 0;
+}
+
+#trFirst {
+	background-color: #ccc;
+}
+
+#canDian {
+	width: 150px;
+	text-align:center;
+}
+
+#jiaGe {
+	width: 60px;
+	text-align: center;
+}
+#shuLiang {
+	width: 60px;
+	text-align:center;
+}
