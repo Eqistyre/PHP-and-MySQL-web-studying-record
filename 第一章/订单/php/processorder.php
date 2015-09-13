@@ -11,6 +11,9 @@
                + $jiDing * JIDING
                + $huiGuo * HUIGUO;
         $date = date('H:i,jS F Y');
+
+        //获取目录
+        $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
 ?>
 
 <html>
@@ -22,8 +25,7 @@
         <h1>请确认你的订单</h1>
    			<?php
 
-	        if (true) {
-	        	echo 'hello';
+	        if ($jiaGe > 0) {
 
 	                echo '<p> 总计</p>';
 
@@ -47,6 +49,26 @@
 	        	else {
 	        		echo '你没有购买任何物品';
 	        	}
+
+
+	        	$outputstring = $date."\t".$kaFei." 咖啡 \t".$jiDing." 鸡丁 \t".$huiGuo." 回锅肉 总计\t".$jiaGe."元\t\n";
+
+       		 	// 打开文件
+       		 	@ $fp = fopen("$DOCUMENT_ROOT/orders/orders.txt",'ab');
+
+       		 	flock($fp, LOCK_EX);
+
+       		 	if (!$fp) {
+       		 		echo "<p><strong> 您的订单未被提交，请下次尝试。</strong></p></body></html>";
+
+       		 		exit;
+       		 	}
+
+       		 	fwrite($fp, $outputstring, strlen($outputstring));
+       		 	flock($fp,LOCK_UN);
+       		 	fclose($fp);
+
+       		 	echo "<p>订单确认</p>";
 
        		 ?>
 </body>
